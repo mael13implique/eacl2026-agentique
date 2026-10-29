@@ -1,0 +1,64 @@
+---
+name: conventions-lemmes
+description: Méthode pour vérifier la conformité de la notation (forme des lemmes, déponents, combinaisons de tags) avec la base data/base.tsv. Pour le contrôleur de conventions.
+---
+
+# Contrôle des conventions de notation
+
+## Principe
+On ne juge pas la grammaire, seulement la **notation**. La base fait foi : toute
+alerte doit citer au moins une ligne de `data/base.tsv` qui montre la convention.
+
+## Règles de lemmatisation de la base
+**[À COMPLÉTER]** Remplis ce tableau en inspectant la base (commandes plus bas).
+
+| Catégorie | Forme de citation attendue | Exemple de la base |
+|---|---|---|
+| Verbe actif | **[À COMPLÉTER]** (1re pers. sing. du présent) | πάσχω |
+| Verbe déponent | **[À COMPLÉTER]** notation avec parenthèses | οἴομαι (–ω) |
+| Nom | **[À COMPLÉTER]** (nominatif singulier) | μέλισσα |
+| Adjectif | **[À COMPLÉTER]** (masc. nom. sing. ou autre) | |
+| Article | **[À COMPLÉTER]** | ὁ |
+| Pronom | **[À COMPLÉTER]** | αὐτός |
+| Participe | **[À COMPLÉTER]** (lemme verbal ou adjectival ?) | |
+| Adverbe issu d'un adjectif | **[À COMPLÉTER]** | |
+
+## Commandes utiles (outil grep ou bash)
+
+Lister les lemmes avec parenthèses (déponents, variantes) :
+```bash
+cut -f2 data/base.tsv | grep -E ' \(' | sort | uniq -c | sort -rn | head -40
+```
+
+Voir toutes les analyses d'un lemme :
+```bash
+grep -P "\tLEMME\t" data/base.tsv
+```
+
+Voir toutes les combinaisons de tags utilisées :
+```bash
+cut -f3 data/base.tsv | sort | uniq -c | sort -rn
+```
+
+Lister les composites :
+```bash
+grep -P "@" data/base.tsv | head -50
+```
+
+## Procédure pour chaque ligne contrôlée
+1. **Lemme** : la forme écrite (accents, esprits, parenthèses, tirets,
+   majuscule) est-elle identique à celle de la base pour ce mot ?
+2. **Combinaison de tags** : existe-t-il au moins une ligne de la base avec la
+   même combinaison ? Si non, la signaler comme « sans précédent ».
+3. **Composite** : même nombre d'éléments de part et d'autre du `@` ?
+4. **Tagset** : chaque tag figure-t-il dans `annotation-grec/references/tagset.md` ?
+
+## Quand émettre une ALERTE
+- Uniquement si tu peux citer une ligne de la base qui montre la notation
+  attendue.
+- Si aucun précédent n'existe, réponds OK : tu ne fais pas la loi.
+- Une combinaison de tags sans précédent mais valide d'après le tagset est
+  **signalée** sans correction imposée.
+
+## Format de la ligne d'alerte
+`id	ALERTE	<problème en une phrase>	<correction> (réf. base : <ligne citée>)`
