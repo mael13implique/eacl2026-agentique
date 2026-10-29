@@ -1,0 +1,43 @@
+---
+name: desambiguisation-grec
+description: Checklist des ambiguïtés fréquentes en grec ancien (article/relatif, participe/adjectif/nom, préposition/adverbe, particules, accents distinctifs). Pour relecture et arbitrage.
+---
+
+# Cas ambigus à vérifier en contexte
+
+Les étiquettes ci-dessous (DET, PRO+Dem...) sont celles de la base. Adapte-les
+au tagset réel : `references/tagset.md` du skill `annotation-grec`.
+
+## Table de contrôle
+
+| Forme / situation | Choix possibles | Question à se poser |
+|---|---|---|
+| ὁ, ἡ, τό, οἱ, αἱ, τά | article ; pronom (surtout avec μέν/δέ) | Un nom ou un adjectif accordé suit-il ? Sinon, le mot fonctionne-t-il comme pronom (ὁ μέν... ὁ δέ) ? |
+| ὅς, ἥ, ὅ | relatif ; démonstratif (rare) | Introduit-il une subordonnée ? Quel est son antécédent (genre, nombre) ? |
+| ὅ, ὅτι, ὅ τι | relatif neutre ; conjonction ; relatif indéfini | « que/parce que » ou « ce que/quoi que » ? |
+| τις / τίς | indéfini (enclitique) ; interrogatif (accent aigu) | Phrase interrogative ? Accent noté ? |
+| ἤ / ἦ | conjonction « ou, que » ; particule | Entre deux termes (ἤ... ἤ) ou comparatif ? |
+| εἰ / εἶ | conjonction « si » ; verbe εἰμί | Introduit-il une hypothèse ou une interrogative indirecte ? |
+| εἰμί / εἶμι | « être » ; « aller » | Cherche la forme exacte, le contexte (verbe de mouvement ?) |
+| ἄν / ἐάν / ἤν | particule modale ; conjonction | Avec subjonctif : conjonction ; avec optatif ou indicatif secondaire : particule |
+| ὡς | adverbe ; conjonction ; préposition | Verbe fini qui suit ? Complément à l'accusatif ? |
+| πρός, ἐπί, παρά, περί... | préposition ; adverbe ; préverbe | Régit-il un cas ? Est-il détaché du verbe ? |
+| Participe | verbe ; adjectif ; nom (substantivé) | Garde-t-il sa rection verbale ? Est-il précédé d'un article en emploi de nom ? |
+| Infinitif | verbe ; nom (infinitif substantivé) | Précédé de l'article τό ? |
+| Adjectif neutre (πολύ, μέγα) | adjectif ; adverbe | Accord avec un nom, ou emploi adverbial ? |
+| Adverbe en -ως | adverbe | Dérive d'un adjectif : le lemme est l'adverbe ou l'adjectif ? **Vérifier la convention de la base.** |
+| γάρ, δέ, μέν, τε, καί, οὖν, ἀλλά | particule ; conjonction ; adverbe | Place dans la phrase, coordination ou emphase ? Suivre la base. |
+| Formes verbales à plusieurs lemmes possibles | verbes homographes | Regarder voix, temps, régime : ne pas deviner sans contexte |
+| Noms propres | nom propre ; nom commun | Majuscule, contexte |
+
+## Règle de décision
+1. Chercher l'indice syntaxique le plus fort (accord, rection, ordre des mots).
+2. Si deux analyses restent plausibles, prendre celle qui est **la plus fréquente
+   dans la base pour cette forme** :
+   `grep -P "^FORME\t" data/base.tsv`
+3. Si rien ne tranche : choisir et le signaler (incertitude), jamais inventer.
+
+## À ne pas faire
+- Changer le lemme pour « améliorer » la lemmatisation par rapport à la base :
+  la base fait foi, pas la tradition grammaticale.
+- Ignorer les accents distinctifs : ils portent souvent la désambiguïsation.
