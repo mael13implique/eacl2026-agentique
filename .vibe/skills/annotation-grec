@@ -1,0 +1,40 @@
+---
+name: annotation-grec
+description: Conventions d'annotation lemme + POS du grec ancien (schéma HYE) : format, invariants, tagset, exemples. À lire avant toute annotation, relecture ou contrôle.
+---
+
+# Annotation lemme + POS du grec ancien
+
+## Objectif
+Pour chaque token d'un texte grec, donner un lemme et une étiquette POS, selon
+le schéma de la base de référence `data/base.tsv`.
+
+## Format de sortie
+TSV à trois colonnes, séparées par une tabulation : `form`, `lemma`, `pos`.
+En-tête du fichier final : `form	lemma	pos`.
+
+## Invariants (jamais négociables)
+1. Un token d'entrée = une ligne, dans l'ordre, sans omission ni ajout.
+2. La colonne `form` reprend la graphie d'entrée telle quelle : accents,
+   esprits, iota souscrit, apostrophes d'élision, majuscules.
+3. Les tags viennent uniquement de `references/tagset.md`.
+4. Les tags se combinent avec `+` comme dans la base (ex. `PRO+Dem`, `N+Com`).
+5. Une forme composite relie ses lemmes et ses POS par `@`, en nombre égal
+   (voir le skill `composites-grec`).
+
+## Procédure d'analyse d'un token
+1. Regarder les analyses déjà présentes dans la base pour cette forme.
+2. Une seule analyse compatible avec la phrase : la reprendre.
+3. Plusieurs analyses : choisir d'après la phrase (voir `desambiguisation-grec`).
+4. Aucune analyse : déduire lemme et POS de la morphologie et de formes
+   voisines de la base. Rechercher avec l'outil grep dans `data/base.tsv`.
+5. Contrôler que chaque tag appartient au tagset.
+
+## Ponctuation et tokens non lexicaux
+**[À COMPLÉTER]** Indiquer ici comment la base traite la ponctuation, les
+chiffres et les mots étrangers (étiquette dédiée, lemme identique à la forme,
+ou absence de ligne). Vérifier dans la base avant de décider.
+
+## Ressources
+- `references/tagset.md` : liste complète des tags autorisés.
+- `references/exemples.tsv` : exemples représentatifs de la base.
